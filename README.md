@@ -4,7 +4,7 @@ PROGRAMMING LANGUAGE CONCEPTS
 
 FALL 2017
 
-Languages: Perl, R, Prolog, Scheme
+Languages: Prolog,
 
 Felix Singerman
 
