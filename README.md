@@ -4,7 +4,7 @@ PROGRAMMING LANGUAGE CONCEPTS
 
 FALL 2017
 
-Languages: Prolog,
+Languages: Prolog, Scheme
 
 Felix Singerman
 
