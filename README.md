@@ -1,10 +1,10 @@
 # CSI 3120 
 
-PROGRAMMING LANGUAGE CONCEPTS
+PROGRAMMING LANGUAGE CONCEPTS / Compilers
 
 FALL 2017
 
-Languages: Prolog, Scheme
+Languages: Prolog, Scheme, PHP, Ruby
 
 Felix Singerman
 
