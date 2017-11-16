@@ -60,7 +60,7 @@ expr:
     | expr '*' expr         { $$ = opera('*', 2, $1, $3); }
     | expr '/' expr         { if($3==0)
                                 yyerror("divide 0");
-                               else 
+                            else 
                                 $$ = opera('/', 2, $1, $3); }
 
     //| '-' expr              { $$ = opera('UNIMUS', 2, -$2); }
