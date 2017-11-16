@@ -13,6 +13,7 @@ int yylex(void);
 
 void yyerror(char *s);
 int symbol_table[26]; // need to make this a hashtable and change every reference of it in every file
+//Map<integer,integer> hm = new HashMap<>();
 %}
 
 %union { //Create a union to handle the integer input values, the index to the symble table for identifiers, or the
@@ -60,7 +61,7 @@ expr:
     | expr '*' expr         { $$ = opera('*', 2, $1, $3); }
     | expr '/' expr         { $$ = opera('/', 2, $1, $3); }
     | '(' expr ')'          { $$ = $2; }
-    | '-' expr  %prec UMINUS { $$ = opera(UMINUS, 1, $2); } 
+    | '-' expr %prec UMINUS { $$ = opera(UMINUS, 1, $2); } 
     ;
 
 %%
