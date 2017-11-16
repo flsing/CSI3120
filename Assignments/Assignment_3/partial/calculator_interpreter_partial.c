@@ -31,6 +31,8 @@ int interpret(nodeType *p) {
                     return interpret(p->operator_.poperands[0]) / interpret(p->operator_.poperands[1]);
                 case '%':
                     return interpret(p->operator_.poperands[0]) % interpret(p->operator_.poperands[1]);
+                case UMINUS:
+                    return -interpret(p->operator_.poperands[0]);
             }
     }
     return 0;

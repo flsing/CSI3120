@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "calculator_interpreter_partial.h"
 #include "y.tab.h"
+#include <math.h>
 
 void yyerror(char *);
 %}
@@ -12,7 +13,9 @@ void yyerror(char *);
 
 "print"     return PRT;
 
-[-/%*=+;]       { return *yytext; }
+[-/%*=+;()]       { return *yytext; }
+
+[UMINUS] 	{return *yytext; }
 
 [a-z]       { yylval.symbol_index = *yytext - 'a'; return VARIABLE; }
 

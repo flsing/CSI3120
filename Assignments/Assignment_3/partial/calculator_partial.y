@@ -12,7 +12,7 @@ int interpret(nodeType *p);
 int yylex(void);
 
 void yyerror(char *s);
-int symbol_table[26];
+int symbol_table[26]; // need to make this a hashtable and change every reference of it in every file
 %}
 
 %union { //Create a union to handle the integer input values, the index to the symble table for identifiers, or the
@@ -28,7 +28,7 @@ int symbol_table[26];
 
 %left '+' '-' '%'
 %left '*' '/' 
-//%noassoc '-'
+%nonassoc UMINUS
 
 %type <nodePointer> stmt expr
 
@@ -58,12 +58,9 @@ expr:
     | expr '-' expr         { $$ = opera('-', 2, $1, $3); }
     | expr '%' expr         { $$ = opera('%', 2, $1, $3); }
     | expr '*' expr         { $$ = opera('*', 2, $1, $3); }
-    | expr '/' expr         { if($3==0)
-                                yyerror("divide 0");
-                            else 
-                                $$ = opera('/', 2, $1, $3); }
-
-    //| '-' expr              { $$ = opera('UNIMUS', 2, -$2); }
+    | expr '/' expr         { $$ = opera('/', 2, $1, $3); }
+    | '(' expr ')'          { $$ = $2; }
+    | '-' expr  %prec UMINUS { $$ = opera(UMINUS, 1, $2); } 
     ;
 
 %%
