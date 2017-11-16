@@ -26,7 +26,9 @@ int symbol_table[26];
 %token <symbol_index> VARIABLE
 %token PRT
 
-%left '+'
+%left '+' '-' '%'
+%left '*' '/' 
+//%noassoc '-'
 
 %type <nodePointer> stmt expr
 
@@ -53,6 +55,15 @@ expr:
     INTEGER                 { $$ = constant($1); }
     | VARIABLE              { $$ = identifier($1); }
     | expr '+' expr         { $$ = opera('+', 2, $1, $3); }
+    | expr '-' expr         { $$ = opera('-', 2, $1, $3); }
+    | expr '%' expr         { $$ = opera('%', 2, $1, $3); }
+    | expr '*' expr         { $$ = opera('*', 2, $1, $3); }
+    | expr '/' expr         { if($3==0)
+                                yyerror("divide 0");
+                               else 
+                                $$ = opera('/', 2, $1, $3); }
+
+    //| '-' expr              { $$ = opera('UNIMUS', 2, -$2); }
     ;
 
 %%

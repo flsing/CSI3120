@@ -12,7 +12,7 @@ void yyerror(char *);
 
 "print"     return PRT;
 
-[=+;]       { return *yytext; }
+[-/%*=+;]       { return *yytext; }
 
 [a-z]       { yylval.symbol_index = *yytext - 'a'; return VARIABLE; }
 
