@@ -25,13 +25,16 @@ int symbol_table[26]; // need to make this a hashtable and change every referenc
 
 %token <input_Value> INTEGER
 %token <symbol_index> VARIABLE
-%token PRT
+%token WHILE IF PRT
+%nonassoc IFX
+%nonassoc ELSE
+
 
 %left '+' '-' '%'
 %left '*' '/' 
 %nonassoc UMINUS
 
-%type <nodePointer> stmt expr
+%type <nodePointer> stmt expr stmt_list
 
 %%
 
@@ -46,10 +49,19 @@ function:
         ;
 
 stmt:
-    ';'				{ $$ = opera(';', 2, NULL, NULL); }
-    | expr ';'			{ $$ = $1; }
-    | PRT expr ';'		{ $$ = opera(PRT, 1, $2); }
-    | VARIABLE '=' expr ';'	{ $$ = opera('=', 2, identifier($1), $3); }
+    ';'				            { $$ = opera(';', 2, NULL, NULL); }
+    | expr ';'			        { $$ = $1; }
+    | PRT expr ';'		        { $$ = opera(PRT, 1, $2); }
+    | VARIABLE '=' expr ';'	    { $$ = opera('=', 2, identifier($1), $3); }
+    | WHILE '(' expr ')' stmt   { $$ = opera(WHILE, 2, $3, $5); }
+    | IF '(' expr ')' stmt %prec IFX     { $$ = opera(IFX, 2, $3, $5); }
+    | IF '(' expr ')' stmt ELSE stmt     { $$ = opera(ELSE, 3, $3, $5, $7); }
+    | '{' stmt_list '}'         {$$ = $2; }
+    ;
+
+stmt_list:
+       stmt                    { $$ = $1; }
+    |  stmt_list stmt          { $$ = opera(';', 2, $1, $2); }
     ;
 
 expr:

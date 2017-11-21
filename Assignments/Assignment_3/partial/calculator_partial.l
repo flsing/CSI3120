@@ -13,6 +13,12 @@ void yyerror(char *);
 
 "print"     return PRT;
 
+"while"		return WHILE;
+
+"if"		return IF;
+
+"else"		return ELSE;
+
 [-/%*=+;()]       { return *yytext; }
 
 [UMINUS] 	{return *yytext; }

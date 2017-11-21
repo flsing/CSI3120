@@ -27,7 +27,6 @@ int interpret(nodeType *p) {
                 case '*':
                     return interpret(p->operator_.poperands[0]) * interpret(p->operator_.poperands[1]);
                 case '/':
-                    //if(interpret(p->operator_.poperands[1])==0)
                     return interpret(p->operator_.poperands[0]) / interpret(p->operator_.poperands[1]);
                 case '%':
                     return interpret(p->operator_.poperands[0]) % interpret(p->operator_.poperands[1]);
