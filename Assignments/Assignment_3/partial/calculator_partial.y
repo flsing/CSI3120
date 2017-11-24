@@ -26,13 +26,13 @@ int symbol_table[26]; // need to make this a hashtable and change every referenc
 %token <input_Value> INTEGER
 %token <symbol_index> VARIABLE
 %token WHILE IF PRT
+
+
+%left '+' '-' 
+%left '*' '/' '%'
+%nonassoc UMINUS
 %nonassoc IFX
 %nonassoc ELSE
-
-
-%left '+' '-' '%'
-%left '*' '/' 
-%nonassoc UMINUS
 
 %type <nodePointer> stmt expr stmt_list
 
